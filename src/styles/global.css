@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: var(--font-main);
+  background-color: #050505;
+  color: white;
+  overflow-x: hidden;
+  cursor: none; /* Ocultar el cursor predeterminado */
+}
+
+.aurora-container {
+  width: 100%;
+  height: 100%;
+}
+
+.goo-filter-container {
+  position: absolute;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.pixel-canvas {
+  position: absolute;
+  z-index: 9999;
+  pointer-events: none; /* Permite hacer clic a través del cursor personalizado */
+}
+
+

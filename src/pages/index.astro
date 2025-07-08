@@ -1,5 +1,7 @@
 ---
-
+import Aurora from '../components/AuroraComponent/Aurora.jsx';
+import PixelTrail from '../components/Pointer/PixelTrail.jsx';
+import '../styles/global.css';
 ---
 
 <html lang="en">
@@ -8,9 +10,31 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Oddysey Voyage 🗺️</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="m-0 p-0 overflow-hidden h-screen w-screen cursor-none">
+		<!-- Aurora -->
+		<div class="fixed top-0 left-0 w-full h-full z-0">
+			<Aurora client:load colorStops={["#2997ff", "#7cff67", "#ff29b0"]} amplitude={1.0} blend={0.5} />
+		</div>
+		
+		<!-- Contenido principal por encima del fondo -->
+		<div class="absolute top-0 left-0 w-full h-full z-50 flex flex-col justify-center items-center text-white text-center px-8">
+			<h1 class="text-[#f51e89] text-5xl mb-4 drop-shadow-[0_0_10px_rgba(255,41,151,0.7)] font-bold bg-black/50 px-4 py-2 rounded">Oddysey Voyage</h1>
+		</div>
+		
+		<!-- PixelTrail Cursor-->
+		<div class="absolute top-0 left-0 w-full h-full z-[100] pointer-events-none">
+			<PixelTrail 
+				client:load
+				gridSize={50}
+				trailSize={0.1}
+				maxAge={500}
+				interpolate={2}
+				color="#0197f4"
+				gooeyFilter={{ id: 'goo-filter', strength:10 }}
+			/>
+		</div>
+	</body>
 	</body>
 </html>
