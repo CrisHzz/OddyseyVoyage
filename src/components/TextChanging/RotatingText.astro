@@ -1,0 +1,22 @@
+---
+// Wrapper simple para RotatingText
+import RotatingTextComponent from './RotatingText.jsx';
+
+export interface Props {
+  texts?: string[];
+  mainClassName?: string;
+  staggerFrom?: string;
+  initial?: object;
+  animate?: object;
+  exit?: object;
+  staggerDuration?: number;
+  splitLevelClassName?: string;
+  transition?: object;
+  rotationInterval?: number;
+}
+---
+
+<RotatingTextComponent 
+  client:load
+  {...Astro.props}
+/>

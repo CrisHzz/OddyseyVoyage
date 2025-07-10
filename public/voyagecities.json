@@ -1,0 +1,75 @@
+{
+  "locations": [
+    {
+      "country": "Spain",
+      "cities": ["Barcelona", "Benidorm","La palma"]
+    },
+    {
+      "country": "Germany", 
+      "cities": ["Munich"]
+    },
+    {
+      "country": "United Kingdom",
+      "cities": ["Bristol", "Skye islands", "Manchester"]
+    },
+    {
+        "country": "Iceland",
+        "cities": ["Reikiavik"]
+    },
+    {
+        "country": "Belarus",
+        "cities":["Minsk"]
+    },
+    {
+        "country": "Russia",
+        "cities":["Moscow","Sochi"]
+    },
+    {
+        "country": "North Abkhazia",
+        "cities":["lakeside summer home"]
+    },
+    {
+        "country": "Georgia",
+        "cities":["Tiflis","Batumi"]
+    },
+    {
+        "country": "Azerbaijan",
+        "cities":["Baku"]
+    },
+    {
+        "country":"Turkey",
+        "cities":["istanbul"]
+    
+    }
+    ,
+    {
+        "country":"China",
+        "cities":["Chongqing","Hanai","Shenzhen"]
+    },
+    {
+        "country":"Malaysia",
+        "cities":["Kuala Lumpur"]
+    },
+    {
+        "country":"Indonesia",
+        "cities":["jakarta","Bali"]
+    },
+    {
+        "country":"Japan",
+        "cities":["Tokyo","kyoto","Osaka","Shizuoka","Ebisuminami-2 Park","Kamakura"]       
+    },
+    {
+        "country":"New Zeland",
+        "cities":["Auckland"]
+    },
+    {
+        "country":"Chile",
+        "cities":["Santiago"]
+    },
+    {
+        "country":"United states of America",
+        "cities":["Honolulu","Seattle","San Francisco"]
+    }
+    
+  ]
+}

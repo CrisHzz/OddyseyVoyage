@@ -1,40 +1,110 @@
 ---
-import Aurora from '../components/AuroraComponent/Aurora.jsx';
-import PixelTrail from '../components/Pointer/PixelTrail.jsx';
-import '../styles/global.css';
+import Aurora from "../components/AuroraComponent/Aurora.jsx";
+import PixelTrail from "../components/Pointer/PixelTrail.jsx";
+import "../styles/global.css";
+import Ecard from "../components/Card/ECardWrapped.astro";
+import RotatingTextWrapper from "../components/TextChanging/RotatingText.astro";
+
+// Cargar datos de ciudades
+const voyageData = await fetch(new URL('/voyagecities.json', Astro.url)).then(res => res.json());
+const locations: Array<{country: string, cities: string[]}> = voyageData.locations;
+
+// Array de gradientes para las tarjetas
+const gradients = [
+  "from-green-400 to-green-700",
+  "from-blue-400 to-blue-700",
+  "from-purple-400 to-purple-700",
+  "from-pink-400 to-pink-700",
+  "from-red-400 to-red-700",
+  "from-yellow-400 to-yellow-700",
+  "from-indigo-400 to-indigo-700",
+  "from-cyan-400 to-cyan-700",
+  "from-emerald-400 to-emerald-700",
+  "from-teal-400 to-teal-700",
+  "from-lime-400 to-lime-700",
+  "from-orange-400 to-orange-700",
+  "from-rose-400 to-rose-700",
+  "from-violet-400 to-violet-700",
+  "from-sky-400 to-sky-700",
+  "from-amber-400 to-amber-700",
+  "from-slate-400 to-slate-700"
+];
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Oddysey Voyage 🗺️</title>
-	</head>
-	<body class="m-0 p-0 overflow-hidden h-screen w-screen cursor-none">
-		<!-- Aurora -->
-		<div class="fixed top-0 left-0 w-full h-full z-0">
-			<Aurora client:load colorStops={["#2997ff", "#7cff67", "#ff29b0"]} amplitude={1.0} blend={0.5} />
-		</div>
-		
-		<!-- Contenido principal por encima del fondo -->
-		<div class="absolute top-0 left-0 w-full h-full z-50 flex flex-col justify-center items-center text-white text-center px-8">
-			<h1 class="text-[#f51e89] text-5xl mb-4 drop-shadow-[0_0_10px_rgba(255,41,151,0.7)] font-bold bg-black/50 px-4 py-2 rounded">Oddysey Voyage</h1>
-		</div>
-		
-		<!-- PixelTrail Cursor-->
-		<div class="absolute top-0 left-0 w-full h-full z-[100] pointer-events-none">
-			<PixelTrail 
-				client:load
-				gridSize={50}
-				trailSize={0.1}
-				maxAge={500}
-				interpolate={2}
-				color="#0197f4"
-				gooeyFilter={{ id: 'goo-filter', strength:10 }}
-			/>
-		</div>
-	</body>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Oddysey Voyage 🗺️</title>
+  </head>
+  <body class="m-0 p-0 overflow-x-hidden min-h-screen w-screen cursor-none">
+    <!-- Aurora -->
+    <div class="fixed top-0 left-0 w-full h-full z-0">
+      <Aurora
+        client:load
+        colorStops={["#2997ff", "#7cff67", "#E0115F"]}
+        amplitude={1.0}
+        blend={0.5}
+      />
+    </div>
+
+    <!-- Contenido principal - Título centrado en la parte superior -->
+    <div class="absolute top-16 left-1/2 transform -translate-x-1/2 z-30 text-center">
+      <div class="flex items-center justify-center gap-4 flex-wrap">
+        <!-- Texto fijo "Voyage Of" -->
+        <h1 class="text-6xl font-bold text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]">
+          Voyage Of
+        </h1>
+        
+        <!-- Texto rotativo -->
+        <div class="inline-block">
+          <RotatingTextWrapper
+            texts={["Discovery", "Adventure", "Dreams", "Wonder","Love"]}
+            mainClassName="text-6xl px-4 bg-gradient-to-r from-indigo-400 via-green-200 to-[#E0115F] text-white py-3 rounded-lg font-bold drop-shadow-[0_0_15px_rgba(147,51,234,0.7)]"
+            staggerFrom="last"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-120%" }}
+            staggerDuration={0.025}
+            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 text-shadow-lg"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={2500}
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Cuadrícula de tarjetas de países -->
+    <div class="absolute top-60 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-6xl px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {locations.map((location: {country: string, cities: string[]}, index: number) => (
+          <div class="w-full">
+            <Ecard 
+              gradient={gradients[index % gradients.length]} 
+              title={location.country} 
+              cities={location.cities.join(", ")} 
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div
+      class="absolute top-0 left-0 w-full h-full z-[100] pointer-events-none"
+    >
+      <PixelTrail
+        client:load
+        gridSize={50}
+        trailSize={0.1}
+        maxAge={500}
+        interpolate={2}
+        color="#0197f4"
+        gooeyFilter={{ id: "goo-filter", strength: 10 }}
+      />
+    </div>
+
+    
+  </body>
 </html>
