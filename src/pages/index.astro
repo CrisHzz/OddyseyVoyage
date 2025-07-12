@@ -9,8 +9,35 @@ import RotatingTextWrapper from "../components/TextChanging/RotatingText.astro";
 const voyageData = await fetch(new URL('/voyagecities.json', Astro.url)).then(res => res.json());
 const locations: Array<{country: string, cities: string[]}> = voyageData.locations;
 
-// Array de gradientes para las tarjetas
-const gradients = [
+// Función para capitalizar la primera letra de cada palabra
+const capitalizeWords = (str: string) => {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+// Mapeo de países a códigos ISO y gradientes inspirados en sus banderas
+const countryData = {
+  "Spain": { code: "ES", gradient: "from-red-500 to-yellow-400" }, // Rojo y amarillo
+  "Germany": { code: "DE", gradient: "from-black via-red-500 to-yellow-400" }, // Negro, rojo, amarillo
+  "Switzerland": { code: "CH", gradient: "from-red-600 to-white" }, // Rojo y blanco
+  "United Kingdom": { code: "GB", gradient: "from-blue-700 via-white to-red-600" }, // Azul, blanco, rojo
+  "Iceland": { code: "IS", gradient: "from-blue-600 via-white to-red-500" }, // Azul, blanco, rojo
+  "Belarus": { code: "BY", gradient: "from-green-500 via-red-500 to-white" }, // Verde, rojo, blanco
+  "Russia": { code: "RU", gradient: "from-white via-blue-600 to-red-600" }, // Blanco, azul, rojo
+  "North Abkhazia": { code: "GE", gradient: "from-green-600 via-white to-red-500" }, // Usar Georgia como referencia
+  "Georgia": { code: "GE", gradient: "from-white via-red-600 to-white" }, // Blanco y rojo
+  "Azerbaijan": { code: "AZ", gradient: "from-blue-500 via-red-500 to-green-500" }, // Azul, rojo, verde
+  "Turkey": { code: "TR", gradient: "from-red-600 to-red-700" }, // Rojo
+  "China": { code: "CN", gradient: "from-red-600 to-yellow-400" }, // Rojo y amarillo
+  "Malaysia": { code: "MY", gradient: "from-red-600 via-white to-blue-700" }, // Rojo, blanco, azul
+  "Indonesia": { code: "ID", gradient: "from-red-600 to-white" }, // Rojo y blanco
+  "Japan": { code: "JP", gradient: "from-white to-red-600" }, // Blanco y rojo
+  "New Zeland": { code: "NZ", gradient: "from-blue-700 via-red-600 to-white" }, // Azul y elementos rojos/blancos
+  "Chile": { code: "CL", gradient: "from-blue-700 via-white to-red-600" }, // Azul, blanco, rojo
+  "United states of America": { code: "US", gradient: "from-blue-800 via-white to-red-600" } // Azul, blanco, rojo
+};
+
+// Array de gradientes por defecto (fallback)
+const defaultGradients = [
   "from-green-400 to-green-700",
   "from-blue-400 to-blue-700",
   "from-purple-400 to-purple-700",
@@ -79,20 +106,27 @@ const gradients = [
     <!-- Cuadrícula de tarjetas de países -->
     <div class="absolute top-60 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-6xl px-4">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {locations.map((location: {country: string, cities: string[]}, index: number) => (
-          <div class="w-full">
-            <Ecard 
-              gradient={gradients[index % gradients.length]} 
-              title={location.country} 
-              cities={location.cities.join(", ")} 
-            />
-          </div>
-        ))}
+        {locations.map((location: {country: string, cities: string[]}, index: number) => {
+          const countryInfo = countryData[location.country as keyof typeof countryData];
+          const gradient = countryInfo?.gradient || defaultGradients[index % defaultGradients.length];
+          const countryCode = countryInfo?.code;
+          
+          return (
+            <div class="w-full">
+              <Ecard 
+                gradient={gradient}
+                title={location.country} 
+                cities={location.cities.map(city => capitalizeWords(city)).join(", ")}
+                countryCode={countryCode}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
 
     <div
-      class="absolute top-0 left-0 w-full h-full z-[100] pointer-events-none"
+      class="fixed top-0 left-0 w-full h-full z-[100] pointer-events-none"
     >
       <PixelTrail
         client:load

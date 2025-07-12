@@ -59,6 +59,64 @@
   padding: 0 1rem;
 }
 
+.flag-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.8rem;
+}
+
+.country-flag {
+  width: 80px;
+  height: 53px;
+  border-radius: 6px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.1);
+  object-fit: cover;
+  transform: scale(1.1);
+}
+
+/* Alternativas para banderas con problemas de transparencia */
+.flag-container.flag-alt-1 .country-flag {
+  background-color: #ffffff;
+  border: 3px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Card con fondo blanco para países problemáticos */
+.e-card.white-background {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.e-card.white-background .wave {
+  opacity: 0.1;
+}
+
+.e-card.white-background .infotop {
+  color: rgb(50, 50, 50);
+}
+
+.e-card.white-background .country-title {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.e-card.white-background .cities-list {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.flag-container.flag-alt-2 .country-flag {
+  background-color: rgba(20, 20, 20, 0.95);
+  border: 4px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.flag-container.flag-alt-3 .country-flag {
+  background: linear-gradient(135deg, rgba(70, 130, 180, 0.9) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(70, 130, 180, 0.9) 100%);
+  border: 4px solid rgba(30, 90, 150, 0.9);
+  box-shadow: 0 4px 16px rgba(30, 90, 150, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
 .country-title {
   font-size: 18px;
   font-weight: 700;
@@ -69,8 +127,7 @@
 .cities-list {
   font-size: 12px;
   font-weight: 300;
-  line-height: 1.4;
-  text-transform: lowercase;
+  line-height: 1.6;
   opacity: 0.9;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }

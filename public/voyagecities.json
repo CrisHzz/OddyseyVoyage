@@ -9,6 +9,10 @@
       "cities": ["Munich"]
     },
     {
+        "country":"Switzerland",
+        "cities":["Zurich"]
+    },
+    {
       "country": "United Kingdom",
       "cities": ["Bristol", "Skye islands", "Manchester"]
     },
