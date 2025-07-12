@@ -10,6 +10,21 @@ export default defineConfig({
   integrations: [react()],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Separar Three.js y relacionados
+            'three': ['three', '@react-three/fiber', '@react-three/drei'],
+            // Separar Framer Motion
+            'framer-motion': ['framer-motion'],
+            // Separar React
+            'react-vendor': ['react', 'react-dom'],
+          }
+        }
+      },
+      chunkSizeWarningLimit: 1000 // Aumentar el límite a 1MB
+    }
   }
 });

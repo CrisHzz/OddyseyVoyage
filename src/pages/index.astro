@@ -6,7 +6,7 @@ import Ecard from "../components/Card/ECardWrapped.astro";
 import RotatingTextWrapper from "../components/TextChanging/RotatingText.astro";
 
 // Cargar datos de ciudades
-const voyageData = await fetch(new URL('/voyagecities.json', Astro.url)).then(res => res.json());
+import voyageData from "../data/voyagecities.json";
 const locations: Array<{country: string, cities: string[]}> = voyageData.locations;
 
 // Función para capitalizar la primera letra de cada palabra
